@@ -17,6 +17,9 @@ app.get("/api/data", (req, res) => {
   res.send([1, 2, 3]);
 });
 
-app.listen("3000", () => {
-  console.log("Listening on port 3000.");
+// Port needs to be dynamic according the host of the app.
+// You could set PORT in terminal using export PORT=4000
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Listening on port ${port}.`);
 });
