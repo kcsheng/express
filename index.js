@@ -13,8 +13,13 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/api/data", (req, res) => {
-  res.send([1, 2, 3]);
+app.get("/api/names", (req, res) => {
+  res.send(["John", "Mary", "Helen"]);
+});
+
+// column will make the query item go into a simple params collection
+app.get("/api/names/:id", (req, res) => {
+  res.send(req.params); // or query string is sent from client side starting with ? such as ?sortBy=name
 });
 
 // Port needs to be dynamic according the host of the app.
