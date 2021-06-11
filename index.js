@@ -7,6 +7,9 @@ const logger = require("./logger");
 const express = require("express");
 const app = express();
 
+app.set("view engine", "pug"); // Express internally export this module so no need to require
+app.set("views", "./views"); // This is default so display this only if you want to store pug somewhere else.
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -30,7 +33,7 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.render("index", { title: "My Express App", heading1: "Hello World" });
 });
 
 app.get("/api/courses", (req, res) => {
