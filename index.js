@@ -4,12 +4,19 @@ const Joi = require("joi");
 const logger = require("./logger");
 const express = require("express");
 const app = express();
+
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`); // returns undefined by default
+console.log(`app: ${app.get("env")}`); // returns development by default
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // process key:value data from the form
 app.use(express.static("public")); // serves static files as root files via url
 app.use(logger);
 app.use(helmet());
-app.use(morgan("tiny"));
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Mogan enabled...");
+}
 
 const courses = [
   { id: 1, name: "course1" },
