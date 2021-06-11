@@ -1,5 +1,4 @@
-const startupDebugger = require("debug")("app:startup");
-const dbDebugger = require("debug")("app:db");
+const debug = require("debug")("app:startup");
 const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -21,10 +20,8 @@ console.log("Mail Password: " + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  startupDebugger("Morgan enabled..."); // Debug app start up area
+  debug("Morgan enabled..."); // Debug app start up area
 }
-
-dbDebugger("Connected to database..."); // Debug db related code area
 
 const courses = [
   { id: 1, name: "course1" },
