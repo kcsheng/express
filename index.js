@@ -1,7 +1,15 @@
 const Joi = require("joi");
+const logger = require("./logger.js"); // Require the logger module
 const express = require("express");
 const app = express();
-app.use(express.json()); // This will parse the request body and convert string to JSON obj.
+app.use(express.json());
+// custom middleware
+app.use(logger);
+app.use((req, res, next) => {
+  console.log("authenticating....");
+  next();
+});
+
 const courses = [
   { id: 1, name: "course1" },
   { id: 2, name: "course2" },
