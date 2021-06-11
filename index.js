@@ -1,14 +1,11 @@
 const Joi = require("joi");
-const logger = require("./logger.js"); // Require the logger module
+const logger = require("./logger");
 const express = require("express");
 const app = express();
 app.use(express.json());
-// custom middleware
+app.use(express.urlencoded({ extended: true })); // process key:value data from the form
+app.use(express.static("public")); // serves static files as root files via url
 app.use(logger);
-app.use((req, res, next) => {
-  console.log("authenticating....");
-  next();
-});
 
 const courses = [
   { id: 1, name: "course1" },
