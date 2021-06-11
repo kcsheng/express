@@ -1,18 +1,24 @@
-const morgan = require("morgan"); //log http request/response
-const helmet = require("helmet"); //set http headers
+const config = require("config"); // Import config module and set up config folder for different env
+const morgan = require("morgan");
+const helmet = require("helmet");
 const Joi = require("joi");
 const logger = require("./logger");
 const express = require("express");
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // process key:value data from the form
-app.use(express.static("public")); // serves static files as root files via url
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.use(logger);
 app.use(helmet());
+
+// Configuration
+console.log("Application Name: " + config.get("name"));
+console.log("Mail Server: " + config.get("mail.host"));
+
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan enabled..."); // You can change the environment to production or testing using export NODE_ENV command in the terminal
+  console.log("Morgan enabled...");
 }
 
 const courses = [
