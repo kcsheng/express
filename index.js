@@ -1,4 +1,6 @@
-const config = require("config"); // Import config module and set up config folder for different env
+const startupDebugger = require("debug")("app:startup");
+const dbDebugger = require("debug")("app:db");
+const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const Joi = require("joi");
@@ -19,8 +21,10 @@ console.log("Mail Password: " + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan enabled...");
+  startupDebugger("Morgan enabled..."); // Debug app start up area
 }
+
+dbDebugger("Connected to database..."); // Debug db related code area
 
 const courses = [
   { id: 1, name: "course1" },
